@@ -16,10 +16,5 @@
   - name: Host the code
     git:
       repo: https://github.com/ravi2krishna/ecomm.git
-      dest: .
-
-  - name: Add our ecommerce to /var/www/html
-    service:
-      name: httpd
-      state: /var/www/html
+      dest: /var/www/html
 ...
