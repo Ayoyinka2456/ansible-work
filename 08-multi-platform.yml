@@ -1,0 +1,51 @@
+
+---
+
+# FIRST PLAY --> multiple tasks
+- name: Install HTTPD server
+  hosts: g1
+  become: yes
+
+  tasks:
+  - name: Install HTTPD
+    yum:
+      name: httpd
+      state: present
+    when : ansible_distribution == "Amazon"
+
+  - name: Start HTTPD
+    service:
+      name: httpd
+      state: started
+    when : ansible_distribution == "Amazon"
+
+  - name: Enable HTTPD
+    service:
+      name: httpd
+      state: started
+    when : ansible_distribution == "Amazon"
+
+
+# UBUNTU
+  - name: Install HTTPD
+    yum:
+      name: httpd
+      state: present
+    when : ansible_distribution == "Ubuntu"
+
+  - name: Start HTTPD
+    service:
+      name: httpd
+      state: started
+    when : ansible_distribution == "Ubuntu"
+
+  - name: Enable HTTPD
+    service:
+      name: httpd
+      state: started
+    when : ansible_distribution == "Ubuntu"
+
+...
+
+
+# when : ansible_distribution == "Amazon"
