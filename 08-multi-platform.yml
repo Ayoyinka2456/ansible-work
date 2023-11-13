@@ -44,7 +44,7 @@
   - name: Enable Apache2
     service:
       name: apache2
-      state: starteds
+      state: started
     when : ansible_distribution == "Ubuntu"
 
 ...
