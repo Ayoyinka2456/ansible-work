@@ -10,6 +10,7 @@
     apt:
       name: apache2
       state: present
+      update_cache: yes
     when: ansible_os_family == "Debian"
 
   - name: start Apache2
@@ -28,7 +29,14 @@
     dnf:
       name: httpd
       state: present
-    when: ansible_os_family == "RedHat"
+      update_cache: yes
+    when: ansible_os_family == "RedHat" and ansible_user_id == 'ec2-user'
+  - name: install Apache on Red Hat family
+    yum:
+      name: httpd
+      state: present
+      update_cache: yes
+    when: ansible_os_family == "RedHat" and ansible_user_id == 'centos'
 
   - name: start Apache
     service:
