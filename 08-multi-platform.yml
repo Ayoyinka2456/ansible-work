@@ -5,49 +5,40 @@
 - name: Install HTTPD server
   hosts: g1
   become: yes
-
   tasks:
-  - name: Install HTTPD
-    dnf:
-      name: httpd
-      state: present
-    when : ansible_distribution == "Amazon"
-
-  - name: Start HTTPD
-    service:
-      name: httpd
-      state: started
-    when : ansible_distribution == "Amazon"
-
-  - name: Enable HTTPD
-    service:
-      name: httpd
-      state: started
-    when : ansible_distribution == "Amazon"
-
-
-# UBUNTU
-  - name: Install Apache2
+  - name: install Apache on Debian family
     apt:
       name: apache2
       state: present
-    when : ansible_distribution == "Ubuntu"
+    when: ansible_os_family == "Debian"
 
-
-  - name: Start Apache2
+  - name: start Apache2
     service:
       name: apache2
       state: started
-    when : ansible_distribution == "Ubuntu"
+    when: ansible_os_family == "Debian"
 
-
-  - name: Enable Apache2
+  - name: enable Apache2
     service:
       name: apache2
-      state: started
-    when : ansible_distribution == "Ubuntu"
+      enabled: true
+    when: ansible_os_family == "Debian"
 
+  - name: install Apache on Red Hat family
+    dnf:
+      name: httpd
+      state: present
+    when: ansible_os_family == "RedHat"
+
+  - name: start Apache
+    service:
+      name: httpd
+      state: started
+    when: ansible_os_family == "RedHat"
+
+  - name: enable Apache
+    service:
+      name: httpd
+      enabled: true
+    when: ansible_os_family == "RedHat"
 ...
-
-
-# when : ansible_distribution == "Amazon"
